@@ -39,8 +39,10 @@ CREATE TABLE IF NOT EXISTS member
 	client_role role NOT NULL,
 	client_id INTEGER NOT NULL REFERENCES client(id),
 	chat_id INTEGER NOT NULL REFERENCES chat(id),
-   admin_rights_id REFERENCES admin_rights(id)
+   admin_rights_id INTEGER REFERENCES admin_rights(id),
 );
+
+
 
 CREATE TABLE IF NOT EXISTS admin_rights (
    id serial PRIMARY KEY,
@@ -56,6 +58,7 @@ CREATE TABLE IF NOT EXISTS message (
    content text,
    creator_id INTEGER NOT NULL REFERENCES member(id),
    chat_id INTEGER NOT NULL REFERENCES chat(id),
+   answer_message INTEGER
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
