@@ -1,3 +1,25 @@
+DO $$ 
+BEGIN 
+    IF EXISTS (SELECT 1 FROM pg_type WHERE typname = 'role') THEN
+        DROP TYPE role;
+    END IF;
+END $$;
+
+DO $$ 
+BEGIN 
+    IF EXISTS (SELECT 1 FROM pg_type WHERE typname = 'file_type') THEN
+        DROP TYPE file_type;
+    END IF;
+END $$;
+
+DROP TABLE IF EXISTS reaction;
+DROP TABLE IF EXISTS reaction_type;
+DROP TABLE IF EXISTS file;
+DROP TABLE IF EXISTS message;
+DROP TABLE IF EXISTS member;
+DROP TABLE IF EXISTS admin_rights;
+DROP TABLE IF EXISTS chat;
+DROP TABLE IF EXISTS client;
 
 DO $$
 BEGIN
