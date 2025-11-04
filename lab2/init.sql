@@ -19,7 +19,6 @@ CREATE TABLE IF NOT EXISTS client
    email varchar(255) NOT NULL UNIQUE,
 	tag varchar(64) NOT NULL UNIQUE,
 	nickname varchar(96) NOT NULL,
-
 	bio text,
 	avatar_url varchar(128)
 );
@@ -58,7 +57,7 @@ CREATE TABLE IF NOT EXISTS message (
    content text,
    creator_id INTEGER NOT NULL REFERENCES member(id),
    chat_id INTEGER NOT NULL REFERENCES chat(id),
-   answer_message INTEGER
+   answer_message INTEGER,
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
