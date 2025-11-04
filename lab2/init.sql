@@ -32,6 +32,15 @@ CREATE TABLE IF NOT EXISTS chat
 	 description text
 );
 
+CREATE TABLE IF NOT EXISTS admin_rights (
+   id serial PRIMARY KEY,
+   can_change_group_info boolean,
+   can_add_new_member boolean,
+   can_delete_member boolean,
+   can_promote_to_admin boolean,
+   can_delete_message boolean
+);
+
 CREATE TABLE IF NOT EXISTS member
 (
    id serial PRIMARY KEY,
@@ -43,14 +52,7 @@ CREATE TABLE IF NOT EXISTS member
 
 
 
-CREATE TABLE IF NOT EXISTS admin_rights (
-   id serial PRIMARY KEY,
-   can_change_group_info boolean,
-   can_add_new_member boolean,
-   can_delete_member boolean,
-   can_promote_to_admin boolean,
-   can_delete_message boolean
-);
+
 
 CREATE TABLE IF NOT EXISTS message (
    id serial PRIMARY KEY,
