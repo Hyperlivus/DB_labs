@@ -1,3 +1,4 @@
+
 DO $$
 BEGIN
 	IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'role') THEN
@@ -47,7 +48,7 @@ CREATE TABLE IF NOT EXISTS member
 	client_role role NOT NULL,
 	client_id INTEGER NOT NULL REFERENCES client(id),
 	chat_id INTEGER NOT NULL REFERENCES chat(id),
-   admin_rights_id INTEGER REFERENCES admin_rights(id),
+   admin_rights_id INTEGER REFERENCES admin_rights(id)
 );
 
 
