@@ -96,6 +96,7 @@ CREATE TABLE IF NOT EXISTS reaction_type (
   id serial PRIMARY KEY,
   tag varchar(32),
   label varchar(96),
+  rate DOUBLE DEFAULT 0.0,
   icon_url varchar(128)
 );
 
@@ -104,5 +105,5 @@ CREATE TABLE IF NOT EXISTS reaction (
    id serial PRIMARY KEY,
    message_id INTEGER NOT NULL REFERENCES message(id),
    owner_id INTEGER NOT NULL REFERENCES member(id),
-   type_id INTEGER NOT NULL REFERENCES reaction_type(id)
+   type_id INTEGER NOT NULL REFERENCES reaction_type(id),
 );

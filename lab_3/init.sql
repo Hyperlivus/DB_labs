@@ -54,6 +54,7 @@ CREATE TABLE IF NOT EXISTS chat
     tag varchar(128) NOT NULL UNIQUE, 
 	 avatar_url varchar(128),
 	 description text,
+    last_activity_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
