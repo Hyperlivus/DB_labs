@@ -32,14 +32,16 @@ const CREATE = 'c';
 const processCreation = async (modelName) => {
   const dmmf = Prisma.dmmf;
   const models = dmmf.datamodel.models;
+  
   const model = models.find(model => {
     return model.name.toLowerCase() === modelName;
   });
   const dto = {};
   for (const field of model.fields) {
     if (field.kind === 'object' || field.name === 'id') continue;
-    const value = await prompt(`Enter ${field.name} value: `);
-    dto[field.name] = value;
+    
+    const value = await prompt(`Enter ${field.name}(${field.type}) value: `);
+    dto[field.name] = field.type === 'Int' ? parseInt(value) : value;
   }
 
   return dto;
