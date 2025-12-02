@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS member
 	client_role role NOT NULL,
 	client_id INTEGER NOT NULL REFERENCES client(id),
 	chat_id INTEGER NOT NULL REFERENCES chat(id),
-    admin_rights_id INTEGER REFERENCES admin_rights(id)
+   admin_rights_id INTEGER REFERENCES admin_rights(id)
 );
 
 

@@ -1,0 +1,99 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+   USER
+   ADMIN
+   SUPER_ADMIN
+}
+
+enum FileType {
+  IMAGE
+  VIDEO
+  AUDIO
+  DOCUMENT
+}
+
+model Client {
+  id Int @id @default(autoincrement())
+  email String @unique
+  tag String @db.VarChar(64) @unique
+  nickname String @db.VarChar(96)
+  bio String? @db.Text
+  avatar_url String? @db.VarChar(128)
+  members Member[]
+}
+
+model Chat {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(128)
+  tag String @db.VarChar(128)
+  avatar_url String? @db.VarChar(128)
+  description String? @db.Text
+  members Member[]
+}
+
+model AdminPermissions {
+  id Int @id @default(autoincrement())
+  can_change_group_info Boolean @default(false)
+  can_add_new_member Boolean @default(false)
+  can_delete_member Boolean @default(false)
+  can_promote_to_admin Boolean @default(false)
+  can_delete_message Boolean @default(false)
+}
+
+model File {
+  id Int @id @default(autoincrement())
+  file_type FileType
+  message_id Int
+  message Message @relation(fields: [message_id], references: [id])
+  src String @db.VarChar(255)
+
+}
+
+model Member {
+  id Int @id @default(autoincrement())
+  role Role
+  client_id Int  
+  chat_id Int
+  client Client @relation(fields: [client_id], references: [id])
+  chat Chat @relation(fields: [chat_id], references: [id])
+
+  messages Message[]
+  reactions Reaction[]
+}
+
+model Message {
+  id Int @id @default(autoincrement())
+  content String @db.Text
+  member_id Int
+
+  creator Member @relation(fields: [member_id], references: [id])  
+  reactions Reaction[]
+  files File[]
+}
+
+model ReactionType {
+  id Int @id @default(autoincrement())
+  tag String @db.VarChar(32)
+  label String @db.VarChar(96)
+  icon_url String @db.VarChar(128)
+  
+  reactions Reaction[]
+}
+
+model Reaction {
+  id Int @id @default(autoincrement())
+  message_id Int
+  type_id Int
+  owner_id Int
+  message Message @relation(fields: [message_id], references: [id])
+  owner Member @relation(fields: [owner_id], references: [id])
+  reaction_type ReactionType @relation(fields: [type_id], references: [id])
+}
